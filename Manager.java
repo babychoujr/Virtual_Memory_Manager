@@ -62,13 +62,13 @@ public class Manager{
         //Initialization of the page table
         int j = 0;
         while(j < init_page.size()){
-            if(physical_memory[2 * init_page.get(j) + 1] == 0){
-                j += 3;
-            }
-            else{
-                physical_memory[physical_memory[2 * init_page.get(j) + 1] * 512 + init_page.get(j+1)] = init_page.get(j + 2);
-                j += 3;
-            }
+            //if(physical_memory[2 * init_page.get(j) + 1] == 0){
+                //j += 3;
+            //}
+            //else{
+            physical_memory[physical_memory[2 * init_page.get(j) + 1] * 512 + init_page.get(j+1)] = init_page.get(j + 2);
+            j += 3;
+            //}
         }
         /*
         System.out.println("first segment: " + physical_memory[1024]);
