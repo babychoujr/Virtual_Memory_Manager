@@ -11,7 +11,7 @@ public class Manager{
         int[] physical_memory = new int[524288];
         String file_line;
         //Reading in the init file for physical memory
-        File file = new File("my_init_input.txt");
+        File file = new File("init-no-dp.txt");
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -62,13 +62,13 @@ public class Manager{
         //Initialization of the page table
         int j = 0;
         while(j < init_page.size()){
-            //if(physical_memory[2 * init_page.get(j) + 1] == 0){
-                //j += 3;
-            //}
-            //else{
-            physical_memory[physical_memory[2 * init_page.get(j) + 1] * 512 + init_page.get(j+1)] = init_page.get(j + 2);
-            j += 3;
-            //}
+            if(physical_memory[2 * init_page.get(j) + 1] == 0){
+                j += 3;
+            }
+            else{
+                physical_memory[physical_memory[2 * init_page.get(j) + 1] * 512 + init_page.get(j+1)] = init_page.get(j + 2);
+                j += 3;
+            }
         }
         /*
         System.out.println("first segment: " + physical_memory[1024]);
@@ -82,7 +82,7 @@ public class Manager{
         //Executing Virtual Address Translations
         
         //Accepting VA 
-        File input_file = new File("my_input.txt");
+        File input_file = new File("input-no-dp.txt");
 
         BufferedReader input_br = new BufferedReader(new FileReader(input_file));
         
@@ -109,7 +109,7 @@ public class Manager{
             int s, w, p, pw;
             s = w = pw = 0;
             int mask = 0x1FF;
-            int mask2 = 0x3FFF;
+            int mask2 = 0x3FFFF;
 
 
             s = va >> 18;
