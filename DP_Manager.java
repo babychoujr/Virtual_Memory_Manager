@@ -66,19 +66,19 @@ public class DP_Manager{
             else{
                 physical_memory[physical_memory[2 * init_page.get(j) + 1] * 512 + init_page.get(j+1)] = init_page.get(j + 2); 
                 if(init_page.get(j+2) > 0){
-                    //System.out.println(init_page.get(j+2));
                     free_frame_list[init_page.get(j+2)] = 0;
                 }
                 j += 3;
             }
         }
         //Executing Virtual Address Translations
-        //System.out.println(physical_memory[1025]);
         //Accepting VA 
         
         File input_file = new File("my_input.txt");
 
         BufferedReader input_br = new BufferedReader(new FileReader(input_file));
+
+        FileWriter writer = new FileWriter("my_output.txt");
         
         //Reading the input
         String input_line;
@@ -130,10 +130,10 @@ public class DP_Manager{
         int pa = 0;
         for(VA obj: va_object_list){
             if(obj.pw >= physical_memory[2 * obj.s]){
-                System.out.print(-1 + " ");
+                //System.out.print(-1 + " ");
+                writer.write(-1 + " ");
                 continue;
             }
-            //System.out.println("ST: " + physical_memory[2 * obj.s + 1]);
             if(physical_memory[2 * obj.s + 1] < 0){
                 int f1 = 0;
 
@@ -144,15 +144,14 @@ public class DP_Manager{
                         break;
                     }
                 }
-                //System.out.println("F1: " + f1);
+
                 for(int k = 0; k < 512; k++){
                     physical_memory[f1 * 512 + k] = paging_disk[-1 * physical_memory[2 * obj.s + 1]][k];
                 }
-                //physical_memory[f1 * 512] = paging_disk[-1 * physical_memory[2 * obj.s + 1]][obj.p];
-                //System.out.println(physical_memory[f1 * 512]);
+
                 physical_memory[2 * obj.s + 1] = f1;
             }
-            //System.out.println("PT: " + physical_memory[physical_memory[2 * obj.s + 1] * 512 + obj.p]);
+
             if(physical_memory[physical_memory[2 * obj.s + 1] * 512 + obj.p] < 0){
 
                 int f2 = 0;
@@ -164,19 +163,20 @@ public class DP_Manager{
                         break;
                     }
                 }
-                //System.out.println("F2: " + f2);
-                //System.out.println("F2: " + f2);
+
                 for(int k = 0; k < 512; k++){
                         physical_memory[f2 * 512 + k] = paging_disk[-1 * physical_memory[physical_memory[2 * obj.s +1] * 512 + obj.p]][k];
                 }
                 physical_memory[physical_memory[2 * obj.s + 1] * 512 + obj.p] = f2;
             }
             pa  = physical_memory[physical_memory[2 * obj.s + 1] * 512 + obj.p] * 512 + obj.w;
-            System.out.print(pa + " ");
+            writer.write(pa + " ");
+            //System.out.print(pa + " ");
         }
 
         br.close();
         input_br.close();
+        writer.close();
 
     }
 }
