@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class DP_Manager{
-    //int[] physical_memory = new int[524288];
 
 
     public static void main(String[] args)throws Exception{
@@ -17,7 +16,7 @@ public class DP_Manager{
 
         String file_line;
         //Reading in the init file for physical memory
-        File file = new File("my_init_input.txt");
+        File file = new File("init-dp.txt");
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -74,11 +73,11 @@ public class DP_Manager{
         //Executing Virtual Address Translations
         //Accepting VA 
         
-        File input_file = new File("my_input.txt");
+        File input_file = new File("input-dp.txt");
 
         BufferedReader input_br = new BufferedReader(new FileReader(input_file));
 
-        FileWriter writer = new FileWriter("my_output.txt");
+        FileWriter writer = new FileWriter("output-dp.txt");
         
         //Reading the input
         String input_line;
